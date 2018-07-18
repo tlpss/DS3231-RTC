@@ -418,12 +418,12 @@ void DS3231::setTimeA1(uint8_t day_date, bool day, uint8_t hour, uint8_t min, ui
 		_writeRegister(REG_A1MIN, reg_new);
 		//set hours
 		encoded = _encode(hour);
-		reg_new = (_readRegister(REG_A1HOUR) / 32) * 32 + encoded;
+		reg_new = (_readRegister(REG_A1HOUR) / 128) * 128 + encoded;
 		_writeRegister(REG_A1HOUR, reg_new);
 	}
 	if (day_date < 32 && day_date >= 0) {
 		uint8_t encoded = _encode(day_date);
-		uint8_t reg_new = 128 * (_readRegister(REG_A1HOUR) / 128) + 64 * day + encoded;
+		uint8_t reg_new = 128 * (_readRegister(REG_A1DAY_DATE) / 128) + 64 * day + encoded;
 		_writeRegister(REG_A1DAY_DATE,reg_new);
 	}
 	
